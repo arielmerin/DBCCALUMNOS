@@ -10,10 +10,6 @@ public class Alumno {
         this.matricula = matricula;
         this.name = name;
     }
-    public Alumno(String name, String materia){
-        this.materia = materia;
-        this.name = name;
-    }
 
     public String getName() {
         return name;
@@ -29,6 +25,6 @@ public class Alumno {
 
     @Override
     public String toString() {
-        return "Alumno:" + name + " matricula: " + matricula + '\n';
+        return "Alumno:" + name + " matricula: " + matricula +'\n';
     }
 }
