@@ -49,4 +49,8 @@ public class Reading {
         }
         return materia;
     }
+
+    public Lista<Alumno> alumnosSinRepetir(){
+        return null;
+    }
 }
