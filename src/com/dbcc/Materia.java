@@ -21,8 +21,7 @@ public class Materia {
 
     @Override
     public String toString() {
-        return "Materia: " + nombre + " \nclave: "+ clave + "\nProfesora: "+ profesora
-                +"\nNumero de alumnos: " + alumnas.longitud();
+        return "Materia: " + nombre;
     }
 
     public Lista<Alumno> listaInscritos(){

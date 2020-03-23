@@ -9,8 +9,8 @@ import java.util.Scanner;
 
 
 public class Reading {
-    private static Lista<Alumno> alumnos = new Lista<>();
-    private static int contador = alumnos.longitud();
+    private static Lista<Alumno> listaMadre = new Lista<>();
+    private static int contador;
 
     public void leyendo(){
         try {
@@ -24,8 +24,8 @@ public class Reading {
                 String name = casit[0].substring(1);
                 String materia = casit[1];
                 materia = materia.substring(1,materia.length()-1);
-                Alumno nuevo = new Alumno(name, materia, ++contador);
-                alumnos.agregar(nuevo);
+                Alumno nuevo = new Alumno(name, materia);
+                listaMadre.agregar(nuevo);
             }
             input.close();
         } catch (FileNotFoundException e){
@@ -37,12 +37,12 @@ public class Reading {
         }
     }
     public Lista<Alumno> getAlumnos(){
-        return alumnos;
+        return listaMadre;
     }
 
     public Materia asignaAlumnos(String nombreMateria, String profesora, int clave){
         Materia materia = new Materia(nombreMateria, profesora, clave);
-        for (Alumno al: alumnos) {
+        for (Alumno al: listaMadre) {
             if (al.getMateria().equals(nombreMateria)){
                 materia.agregarAlumno(al);
             }
@@ -50,7 +50,44 @@ public class Reading {
         return materia;
     }
 
-    public Lista<Alumno> alumnosSinRepetir(){
+    public Lista<String> alumnosSinRepetir(){
+        Lista<String> alumnosSinRepetir = new Lista<>();
+        for (Alumno estudiante: listaMadre) {
+            /**
+             * esto unu
+             */
+            if (!alumnosSinRepetir.contiene(estudiante.getName())){
+                estudiante.setMatricula(++contador);
+                alumnosSinRepetir.agregar(estudiante.getName());
+            }
+        }
+        return alumnosSinRepetir;
+    }
+
+
+    public Lista<Alumno> unionRelacionar(){
+        Lista<Alumno> listaFinalF = new Lista<>();
+        for (String nombre: alumnosSinRepetir()){
+            Alumno nuevo = new Alumno(nombre);
+            for (Alumno estudiante : listaMadre) {
+                if (nombre.equals(estudiante.getName())){
+                    if (estudiante.getMatricula() != 0){
+                        nuevo.setMatricula(estudiante.getMatricula());
+                    }
+                    nuevo.agregarMaterias(estudiante.getMateria(),"profe x definir",0);
+                }
+            }
+            listaFinalF.agregar(nuevo);
+        }
+        return listaFinalF;
+    }
+
+    public Alumno buscaAlumnos(String name){
+        for (Alumno estudiante: unionRelacionar()) {
+            if (estudiante.getName().toLowerCase().equals(name.toLowerCase())){
+                return estudiante;
+            }
+        }
         return null;
     }
 }

@@ -369,7 +369,7 @@ public class Lista<T> implements Listable<T>, Iterable<T>{
         Iterator it = iterator();
         StringBuilder sb = new StringBuilder();
         while (it.hasNext()){
-            sb.append(it.next().toString() + ", ");
+            sb.append(it.next().toString() + "\n ");
         }
         String result = "";
         if (sb.length() > 1){
@@ -377,4 +377,6 @@ public class Lista<T> implements Listable<T>, Iterable<T>{
         }
         return "[" + result + "]";
     }
+
+
 }
