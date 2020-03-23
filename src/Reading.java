@@ -1,7 +1,9 @@
 import com.dbcc.Alumno;
+import com.dbcc.Materia;
 import com.util.Lista;
 
 import java.io.File;
+import java.util.Iterator;
 import java.util.Scanner;
 
 
@@ -30,5 +32,16 @@ public class Reading {
     }
     public Lista<Alumno> getAlumnos(){
         return alumnos;
+    }
+
+    public Materia asignaAlumnos(String nombreMateria, String profesor, int clave){
+        Materia materia = new Materia(nombreMateria, profesor, clave);
+        for (Alumno al:
+             alumnos) {
+            if (al.getMateria().equals(nombreMateria)){
+                materia.agregarAlumno(al);
+            }
+        }
+        return materia;
     }
 }
