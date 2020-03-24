@@ -104,10 +104,12 @@ public class BaseDeDatos implements Serializable {
     }
 
     public void  asignarClaveProfe(Materia materia, String profe, int clave){
-        for (Materia materia1 : listaMaterias) {
-            if (materia1.getNombre().toLowerCase().equals(materia.getNombre().toLowerCase())){
-                materia1.setProfesora(profe);
-                materia1.setClave(clave);
+        for (Alumno alumno : listaFinalF) {
+            for (Materia materia1: alumno.getMaterias()) {
+                if (materia1.getNombre().toLowerCase().equals(materia.getNombre().toLowerCase())){
+                    materia1.setProfesora(profe);
+                    materia1.setClave(clave);
+                }
             }
         }
         System.out.println(listaMaterias);
