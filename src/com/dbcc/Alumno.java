@@ -43,6 +43,6 @@ public class Alumno {
 
     @Override
     public String toString() {
-        return "Alumno:" + name + " matricula: " + matricula +"\nInscrita en: " + materias + '\n' ;
+        return "Alumno:" + name  ;
     }
 }

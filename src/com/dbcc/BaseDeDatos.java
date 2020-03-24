@@ -1,6 +1,9 @@
+package com.dbcc;
+
 import com.dbcc.Alumno;
 import com.dbcc.Materia;
 import com.util.Lista;
+import org.omg.PortableServer.LIFESPAN_POLICY_ID;
 
 import java.io.File;
 import java.io.FileNotFoundException;
@@ -8,8 +11,9 @@ import java.io.IOException;
 import java.util.Scanner;
 
 
-public class Reading {
+public class BaseDeDatos {
     private static Lista<Alumno> listaMadre = new Lista<>();
+    private static Lista<Materia> listaMaterias = new Lista<>();
     private static int contador;
 
     public void leyendo(){
@@ -40,8 +44,8 @@ public class Reading {
         return listaMadre;
     }
 
-    public Materia asignaAlumnos(String nombreMateria, String profesora, int clave){
-        Materia materia = new Materia(nombreMateria, profesora, clave);
+    public Materia asignaAlumnos(String nombreMateria){
+        Materia materia = new Materia(nombreMateria);
         for (Alumno al: listaMadre) {
             if (al.getMateria().equals(nombreMateria)){
                 materia.agregarAlumno(al);
@@ -53,9 +57,6 @@ public class Reading {
     public Lista<String> alumnosSinRepetir(){
         Lista<String> alumnosSinRepetir = new Lista<>();
         for (Alumno estudiante: listaMadre) {
-            /**
-             * esto unu
-             */
             if (!alumnosSinRepetir.contiene(estudiante.getName())){
                 estudiante.setMatricula(++contador);
                 alumnosSinRepetir.agregar(estudiante.getName());
@@ -81,7 +82,47 @@ public class Reading {
         }
         return listaFinalF;
     }
+    public Lista<String> materiasSinRepetir(){
+        Lista<String> materiasSinR = new Lista<>();
+        for (Alumno estudiante: listaMadre) {
+            if (!materiasSinR.contiene(estudiante.getMateria())){
+                materiasSinR.agregar(estudiante.getMateria());
+            }
+        }
+        return materiasSinR;
+    }
 
+    public Lista<Materia> materiasAlumnos() {
+        Lista<Materia> materiasL = new Lista<>();
+        for (String mat: materiasSinRepetir()) {
+            materiasL.agregar(asignaAlumnos(mat));
+        }
+        listaMaterias = materiasL;
+        return materiasL;
+    }
+
+    public Lista<Materia> asignarClaveProfe(Materia materia, String profe, int clave){
+        Lista<Materia> modiicada = listaMaterias;
+        for (Materia materi : modiicada) {
+            if (materi.getNombre().toLowerCase().equals(materia.getNombre().toLowerCase())){
+                Materia aux = materi;
+                aux.setProfesora(profe);
+                aux.setClave(clave);
+                materiasAlumnos().eliminar(materi);
+                materiasAlumnos().agregar(aux);
+            }
+        }
+        listaMaterias = modiicada;
+        return modiicada;
+    }
+    public Materia buscaMateria(String name){
+        for (Materia materia : materiasAlumnos()){
+            if (materia.getNombre().toLowerCase().equals((name.toLowerCase()))){
+                return materia;
+            }
+        }
+        return null;
+    }
     public Alumno buscaAlumnos(String name){
         for (Alumno estudiante: unionRelacionar()) {
             if (estudiante.getName().toLowerCase().equals(name.toLowerCase())){
@@ -89,5 +130,9 @@ public class Reading {
             }
         }
         return null;
+    }
+
+    public static Lista<Materia> getListaMaterias() {
+        return listaMaterias;
     }
 }

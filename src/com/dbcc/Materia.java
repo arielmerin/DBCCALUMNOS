@@ -14,14 +14,30 @@ public class Materia {
         this.profesora = profesora;
         alumnas = new Lista<>();
     }
+    public Materia(String nombre){
+        this.nombre = nombre;
+        alumnas = new Lista<>();
+    }
 
     public void agregarAlumno(Alumno alumna){
         alumnas.agregar(alumna);
     }
 
+    public String getNombre() {
+        return nombre;
+    }
+
     @Override
     public String toString() {
-        return "Materia: " + nombre;
+        return "Materia: " + nombre + " Profe: "+ profesora + " Clave: " + clave +"\n" ;
+    }
+
+    public void setClave(int clave) {
+        this.clave = clave;
+    }
+
+    public void setProfesora(String profesora) {
+        this.profesora = profesora;
     }
 
     public Lista<Alumno> listaInscritos(){

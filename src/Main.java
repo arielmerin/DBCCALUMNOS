@@ -1,3 +1,4 @@
+import com.dbcc.BaseDeDatos;
 import com.dbcc.Materia;
 
 import static com.UIMenu.UIMenu.principal;
@@ -8,7 +9,7 @@ public class Main {
     }
 }
 
-//Reading al = new Reading();
+//com.dbcc.BaseDeDatos al = new com.dbcc.BaseDeDatos();
 //al.leyendo();
 //System.out.println(al.getAlumnos());
 //System.out.println(al.alumnosSinRepetir());
