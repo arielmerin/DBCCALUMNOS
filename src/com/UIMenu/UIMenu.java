@@ -44,9 +44,7 @@ public class UIMenu {
                     if (!archivo2.exists()) {
                         System.out.println("OJO: ¡¡No existe el archivo de configuración!!");
                     }else {
-                        System.out.println("En este caso si existe el archivo");
                         db.leyendo(rutadefault);
-                        System.out.println(db.getListaMaterias());
                         primeraPregunta = false;
                     }
                     break;
@@ -61,17 +59,19 @@ public class UIMenu {
             System.out.println("[1] Materias a las que esta inscrito un alumno");
             System.out.println("[2] Alumnos inscritos en una materia");
             System.out.println("[3] Añadir profesor y clave de materias");
-            System.out.println("[5] Sallir");
+            System.out.println("[4] Sallir");
             int respues = getInt("Seleccione una opcion: ", "Error, intente de nuevo");
             switch (respues){
                 case 1:
-                    System.out.println(db.unionRelacionar());
                     System.out.println("Ingrese el nombre del alumno a consultar");
                     String nombre = getStr("Ingrese el nombre a consultar: ", "Error, solo ingrese letras");
                     Alumno busqueda = db.buscaAlumnos(nombre);
                     if (busqueda != null ){
                         System.out.println(busqueda);
+                        System.out.println("\nInscrito en las siguientes materias\n");
+                        System.out.println("_/\\_/\\_/\\_/\\_/\\_/\\_/\\_/\\_/\\_/\\_/\\_/\\_/\\_/\\_/\\_/\\_/\\_/\\_/\\_/\\_/\\_/\\_/\\_\n");
                         System.out.println(busqueda.getMaterias());
+                        System.out.println("_/\\_/\\_/\\_/\\_/\\_/\\_/\\_/\\_/\\_/\\_/\\_/\\_/\\_/\\_/\\_/\\_/\\_/\\_/\\_/\\_/\\_/\\_/\\_");
                     }else {
                         System.out.println("No fue encontrado el estudiante " + nombre);
                     }
@@ -81,6 +81,7 @@ public class UIMenu {
                     Materia busquedaMat = db.buscaMateria(mat);
                     if (busquedaMat != null){
                         System.out.println(busquedaMat);
+                        System.out.println(busquedaMat.listaInscritos());
                     }else {
                         System.out.println("No fue encontrada la materia " + mat);
                     }
@@ -96,7 +97,7 @@ public class UIMenu {
                         System.out.println("NO ha resultados para " + laMateriaAAsignar);
                     }
                     break;
-                case 5:
+                case 4:
                     serializer.write(db,ruta);
                     continuar = false;
                     System.out.println("Hasta luego");

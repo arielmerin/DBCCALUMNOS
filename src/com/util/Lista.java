@@ -376,7 +376,7 @@ public class Lista<T extends Serializable> implements Listable<T>, Iterable<T>, 
         if (sb.length() > 1){
             result = sb.substring(0,sb.length() - 2);
         }
-        return "[" + result + "]";
+        return result ;
     }
 
 

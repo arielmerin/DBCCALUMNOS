@@ -1,5 +1,6 @@
 package com.dbcc;
 
+import com.serializer.Serializer;
 import com.util.Lista;
 
 import java.io.File;
@@ -13,10 +14,11 @@ public class BaseDeDatos implements Serializable {
     private static Lista<Alumno> listaMadre = new Lista<>();
     private  Lista<Materia> listaMaterias = new Lista<>();
     /**
-     * Esta lista albergara los alumnos sin repetir con las materias correspondietnes
+     * Esta lista albergara los alumnos sin repetir, con las materias correspondietnes
      */
-    Lista<Alumno> listaFinalF = new Lista<>();
+    private Lista<Alumno> listaFinalF = new Lista<>();
     private static int contador;
+
 
     public void leyendo(String ruta){
         try {
@@ -38,9 +40,9 @@ public class BaseDeDatos implements Serializable {
         } catch (Exception ex) {
             System.out.println("El documento no se pudo abrir, intente de nuevo");
         }
-    }
-    public Lista<Alumno> getAlumnos(){
-        return listaMadre;
+        if (listaFinalF.esVacia()){
+            unionRelacionar();
+        }
     }
 
     public Materia asignaAlumnos(String nombreMateria){
@@ -112,6 +114,14 @@ public class BaseDeDatos implements Serializable {
                 }
             }
         }
+        for (Materia materia1 : listaMaterias) {
+            if (materia1.getNombre().toLowerCase().equals(materia.getNombre().toLowerCase())){
+                materia1.setProfesora(profe);
+                materia1.setClave(clave);
+            }
+        }
+        Serializer ser = new Serializer();
+        ser.write(listaMaterias, "Base_Datos.dat");
         System.out.println(listaMaterias);
     }
 
@@ -126,7 +136,9 @@ public class BaseDeDatos implements Serializable {
         return null;
     }
     public Alumno buscaAlumnos(String name){
-        unionRelacionar();
+        if (listaFinalF.esVacia()){
+            unionRelacionar();
+        }
         for (Alumno estudiante: listaFinalF) {
             if (estudiante.getName().toLowerCase().equals(name.toLowerCase())){
                 return estudiante;
@@ -135,7 +147,4 @@ public class BaseDeDatos implements Serializable {
         return null;
     }
 
-    public Lista<Materia> getListaMaterias() {
-        return listaMaterias;
-    }
 }
