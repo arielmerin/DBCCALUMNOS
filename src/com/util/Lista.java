@@ -1,5 +1,6 @@
 package com.util;
 
+import java.io.Serializable;
 import java.util.Iterator;
 
 /**
@@ -9,10 +10,10 @@ import java.util.Iterator;
  * @author Kevin Ariel Merino Peña 317031326
  * @version 1.0
  */
-public class Lista<T> implements Listable<T>, Iterable<T>{
+public class Lista<T extends Serializable> implements Listable<T>, Iterable<T>, Serializable{
 
     /* Clase interna para construir la estructura */
-    private class Nodo{
+    private class Nodo implements Serializable{
         /* Referencias a los nodos anterior y siguiente */
         public Nodo anterior, siguiente;
         /* El elemento que almacena un nodo */
@@ -29,7 +30,7 @@ public class Lista<T> implements Listable<T>, Iterable<T>{
         }
     }
 
-    private class IteradorLista<T> implements Iterator<T>{
+    private class IteradorLista<T> implements Iterator<T>, Serializable{
 
         private Nodo siguiente;
 
@@ -316,7 +317,7 @@ public class Lista<T> implements Listable<T>, Iterable<T>{
      * @param l La lista de elementos comparables.
      * @return copia de la lista ordenada.
      */
-    public <T extends Comparable<T>> Lista<T> mergesort(Lista<T> l){
+    public <T extends Comparable<T> & Serializable> Lista<T> mergesort(Lista<T> l){
         if ( l.longitud < 2 ){
             return l;
         }
@@ -342,7 +343,7 @@ public class Lista<T> implements Listable<T>, Iterable<T>{
      * @param <T> Generico que debe heredar de tipo comparable para poder ordenar
      * @return Lista ordenada
      */
-    public <T extends Comparable<T>> Lista<T> mezcla(Lista<T> l1, Lista<T> l2){
+    public <T extends Comparable<T> & Serializable> Lista<T> mezcla(Lista<T> l1, Lista<T> l2){
         Lista<T> l = new Lista<T>();
         while( l1.cabeza != null && l2.cabeza != null) {
             if (l1.cabeza.elemento.compareTo(l2.cabeza.elemento) < 0) {
@@ -369,12 +370,14 @@ public class Lista<T> implements Listable<T>, Iterable<T>{
         Iterator it = iterator();
         StringBuilder sb = new StringBuilder();
         while (it.hasNext()){
-            sb.append(it.next().toString() + ", ");
+            sb.append(it.next().toString() + "\n ");
         }
         String result = "";
         if (sb.length() > 1){
             result = sb.substring(0,sb.length() - 2);
         }
-        return "[" + result + "]";
+        return result ;
     }
+
+
 }

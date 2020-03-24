@@ -2,7 +2,9 @@ package com.dbcc;
 
 import com.util.Lista;
 
-public class Materia {
+import java.io.Serializable;
+
+public class Materia implements Serializable {
     private Lista<Alumno> alumnas;
     private int clave;
     private String nombre;
@@ -14,15 +16,31 @@ public class Materia {
         this.profesora = profesora;
         alumnas = new Lista<>();
     }
+    public Materia(String nombre){
+        this.nombre = nombre;
+        this.profesora = "NO asinada";
+        alumnas = new Lista<>();
+    }
 
     public void agregarAlumno(Alumno alumna){
         alumnas.agregar(alumna);
     }
 
+    public String getNombre() {
+        return nombre;
+    }
+
     @Override
     public String toString() {
-        return "Materia: " + nombre + " \nclave: "+ clave + "\nProfesora: "+ profesora
-                +"\nNumero de alumnos: " + alumnas.longitud();
+        return "Materia: " + nombre + " Profe: "+ profesora + " Clave: " + clave +"\n" ;
+    }
+
+    public void setClave(int clave) {
+        this.clave = clave;
+    }
+
+    public void setProfesora(String profesora) {
+        this.profesora = profesora;
     }
 
     public Lista<Alumno> listaInscritos(){
