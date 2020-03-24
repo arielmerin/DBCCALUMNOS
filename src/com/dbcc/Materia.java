@@ -2,7 +2,9 @@ package com.dbcc;
 
 import com.util.Lista;
 
-public class Materia {
+import java.io.Serializable;
+
+public class Materia implements Serializable {
     private Lista<Alumno> alumnas;
     private int clave;
     private String nombre;
@@ -16,6 +18,7 @@ public class Materia {
     }
     public Materia(String nombre){
         this.nombre = nombre;
+        this.profesora = "NO asinada";
         alumnas = new Lista<>();
     }
 

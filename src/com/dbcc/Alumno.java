@@ -2,7 +2,9 @@ package com.dbcc;
 
 import com.util.Lista;
 
-public class Alumno {
+import java.io.Serializable;
+
+public class Alumno implements Serializable {
     private String name;
     private String materia;
     private Lista<Materia> materias;
@@ -43,6 +45,6 @@ public class Alumno {
 
     @Override
     public String toString() {
-        return "Alumno:" + name  ;
+        return "Alumno:" + name + "Numero de cuenta: " + matricula ;
     }
 }

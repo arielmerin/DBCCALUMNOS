@@ -1,28 +1,27 @@
 package com.dbcc;
 
-import com.dbcc.Alumno;
-import com.dbcc.Materia;
 import com.util.Lista;
-import org.omg.PortableServer.LIFESPAN_POLICY_ID;
 
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.IOException;
+import java.io.Serializable;
 import java.util.Scanner;
 
 
-public class BaseDeDatos {
+public class BaseDeDatos implements Serializable {
     private static Lista<Alumno> listaMadre = new Lista<>();
-    private static Lista<Materia> listaMaterias = new Lista<>();
+    private  Lista<Materia> listaMaterias = new Lista<>();
+    /**
+     * Esta lista albergara los alumnos sin repetir con las materias correspondietnes
+     */
+    Lista<Alumno> listaFinalF = new Lista<>();
     private static int contador;
 
-    public void leyendo(){
+    public void leyendo(String ruta){
         try {
-            Scanner input = new Scanner(new File("src/alumnos.txt"));
+            Scanner input = new Scanner(new File(ruta));
             while (input.hasNextLine()) {
-                /**
-                 * Este while es para cada alumno (bueno cada linea del txt)
-                 */
                 String line = input.nextLine();
                 String[] casit = line.split(",");
                 String name = casit[0].substring(1);
@@ -66,8 +65,10 @@ public class BaseDeDatos {
     }
 
 
-    public Lista<Alumno> unionRelacionar(){
-        Lista<Alumno> listaFinalF = new Lista<>();
+    public void unionRelacionar(){
+        if (!listaFinalF.esVacia()){
+            return;
+        }
         for (String nombre: alumnosSinRepetir()){
             Alumno nuevo = new Alumno(nombre);
             for (Alumno estudiante : listaMadre) {
@@ -75,12 +76,11 @@ public class BaseDeDatos {
                     if (estudiante.getMatricula() != 0){
                         nuevo.setMatricula(estudiante.getMatricula());
                     }
-                    nuevo.agregarMaterias(estudiante.getMateria(),"profe x definir",0);
+                    nuevo.agregarMaterias(estudiante.getMateria(),"No asignado",0);
                 }
             }
             listaFinalF.agregar(nuevo);
         }
-        return listaFinalF;
     }
     public Lista<String> materiasSinRepetir(){
         Lista<String> materiasSinR = new Lista<>();
@@ -93,28 +93,28 @@ public class BaseDeDatos {
     }
 
     public Lista<Materia> materiasAlumnos() {
-        Lista<Materia> materiasL = new Lista<>();
-        for (String mat: materiasSinRepetir()) {
-            materiasL.agregar(asignaAlumnos(mat));
+        if (listaMaterias.esVacia()) {
+            Lista<Materia> materiasL = new Lista<>();
+            for (String mat: materiasSinRepetir()) {
+                materiasL.agregar(asignaAlumnos(mat));
+            }
+            listaMaterias = materiasL;
         }
-        listaMaterias = materiasL;
-        return materiasL;
+        return listaMaterias;
     }
 
-    public Lista<Materia> asignarClaveProfe(Materia materia, String profe, int clave){
-        Lista<Materia> modiicada = listaMaterias;
-        for (Materia materi : modiicada) {
-            if (materi.getNombre().toLowerCase().equals(materia.getNombre().toLowerCase())){
-                Materia aux = materi;
-                aux.setProfesora(profe);
-                aux.setClave(clave);
-                materiasAlumnos().eliminar(materi);
-                materiasAlumnos().agregar(aux);
+    public void  asignarClaveProfe(Materia materia, String profe, int clave){
+        for (Materia materia1 : listaMaterias) {
+            if (materia1.getNombre().toLowerCase().equals(materia.getNombre().toLowerCase())){
+                materia1.setProfesora(profe);
+                materia1.setClave(clave);
             }
         }
-        listaMaterias = modiicada;
-        return modiicada;
+        System.out.println(listaMaterias);
     }
+
+
+
     public Materia buscaMateria(String name){
         for (Materia materia : materiasAlumnos()){
             if (materia.getNombre().toLowerCase().equals((name.toLowerCase()))){
@@ -124,7 +124,8 @@ public class BaseDeDatos {
         return null;
     }
     public Alumno buscaAlumnos(String name){
-        for (Alumno estudiante: unionRelacionar()) {
+        unionRelacionar();
+        for (Alumno estudiante: listaFinalF) {
             if (estudiante.getName().toLowerCase().equals(name.toLowerCase())){
                 return estudiante;
             }
@@ -132,7 +133,7 @@ public class BaseDeDatos {
         return null;
     }
 
-    public static Lista<Materia> getListaMaterias() {
+    public Lista<Materia> getListaMaterias() {
         return listaMaterias;
     }
 }
