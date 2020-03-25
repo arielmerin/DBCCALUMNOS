@@ -81,8 +81,10 @@ public class BaseDeDatos implements Serializable {
     }
 
     /**
-     *
-     * @return
+     * En este metodo se toma la lista que se genero luego de leer el archivo de texto para comparar por cada alumno
+     * dentro de esa lista entonces emplea una compracion donde se pregunta si ese nombre ya estaba añadido y en caso
+     * de que no ocurra entonces lo añade en el caso contrario no lo agrega
+     * @return lista de alimnos que no tiene elementos repetidos
      */
     public Lista<String> alumnosSinRepetir(){
         Lista<String> alumnosSinRepetir = new Lista<>();
@@ -95,7 +97,10 @@ public class BaseDeDatos implements Serializable {
         return alumnosSinRepetir;
     }
 
-
+    /**
+     * Durante la ejecucion de este metodo se genera una lista donde cada alumno no repetido tiene todas las materias
+     * que tenia en la lista original, finalmente se obtiene la relacion de alumnos-materia con cada uno como le corresponde
+     */
     public void unionRelacionar(){
         if (!listaFinalF.esVacia()){
             return;
@@ -113,6 +118,12 @@ public class BaseDeDatos implements Serializable {
             listaFinalF.agregar(nuevo);
         }
     }
+
+    /**
+     * En este metodo se busca cada materia de los alumnos obtenidos del metodo leyendo donde se tienen todos los datos
+     * repetidos, luego va añadiendo los nombres de las materias bajo el criterio de que no haya una repetida
+     * @return lista con el nombre de las materias sin repetirse
+     */
     public Lista<String> materiasSinRepetir(){
         Lista<String> materiasSinR = new Lista<>();
         for (Alumno estudiante: listaMadre) {
@@ -123,7 +134,10 @@ public class BaseDeDatos implements Serializable {
         return materiasSinR;
     }
 
-    public Lista<Materia> materiasAlumnos() {
+    /**
+     * Este metodo asigna a cada una de las materias no repetidas todos los alumnos que tienen asignado en l alista de materias
+     */
+    public void materiasAlumnos() {
         if (listaMaterias.esVacia()) {
             Lista<Materia> materiasL = new Lista<>();
             for (String mat: materiasSinRepetir()) {
@@ -131,9 +145,16 @@ public class BaseDeDatos implements Serializable {
             }
             listaMaterias = materiasL;
         }
-        return listaMaterias;
     }
 
+    /**
+     * En este metodo se hace uso de la materia con la que funciona para busca ren la lista donde estan los alumnos con
+     * sus materias y tambien busca en la lista de materias para actializar los datos, en cada una le asigna el nombre
+     * de lx profesorx de la materia
+     * @param materia materia a la que se le asignara profesor y clave
+     * @param profe nombre del profesor
+     * @param clave numero de clave para añadir a la materia del primer parametro
+     */
     public void  asignarClaveProfe(Materia materia, String profe, int clave){
         for (Alumno alumno : listaFinalF) {
             for (Materia materia1: alumno.getMaterias()) {
@@ -154,16 +175,27 @@ public class BaseDeDatos implements Serializable {
         System.out.println(listaMaterias);
     }
 
-
-
+    /**
+     * Este metodo itera sobre las lista de materias para encontrar una en especifico, lo hace comparando los nombres de
+     * las materias que ya se tienen
+     * @param name nombre de la materia que se buscara
+     * @return materia encontrada en la lista o nullo en caso de no haberlo encontrado
+     */
     public Materia buscaMateria(String name){
-        for (Materia materia : materiasAlumnos()){
+        materiasAlumnos();
+        for (Materia materia : listaMaterias){
             if (materia.getNombre().toLowerCase().equals((name.toLowerCase()))){
                 return materia;
             }
         }
         return null;
     }
+    /**
+     * Este metodo itera sobre las lista de alumnos para encontrar uno en especifico, lo hace comparando los nombres de
+     * las alumnas que ya se tienen
+     * @param name nombre de la alumna que se buscara
+     * @return alumna encontrada en la lista o nulo en caso de no haberla encontrado
+     */
     public Alumno buscaAlumnos(String name){
         if (listaFinalF.esVacia()){
             unionRelacionar();

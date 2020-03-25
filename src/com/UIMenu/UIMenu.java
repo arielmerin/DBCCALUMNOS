@@ -2,18 +2,44 @@ package com.UIMenu;
 
 import com.dbcc.*;
 import com.serializer.Serializer;
-
 import java.io.File;
 import java.util.Scanner;
 
 import static com.util.Utilidades.getInt;
 import static com.util.Utilidades.getStr;
 
+/**
+ * <h1>UI Menu</h1>
+ * Esta clase provee de todas las interaccione graficas que el usuario experimentara a traves de la terminal durante la
+ * ejecucion del programa, lo refente a mostrar y manejar las opciones que el ejecutador use
+ * @author Armando Aquino Chapa, Ariel Merino Peña
+ * @version 1
+ */
 public class UIMenu {
+    /**
+     * Objeto que sera util para realizar la persistencia de datos a traves de la serializacion de informacipon
+     */
     static Serializer serializer = new Serializer();
+    /**
+     * Path por defecto donde se alojara el arachivo que contiene la informacion serializada
+     */
     static String ruta = "Base_Datos.dat";
+    /**
+     * Ruta donde por omision se espera encontrar al menos un archivo txt
+     */
     static String rutadefault = "src/alumnos.txt";
+    /**
+     * Este objeto sera de utlilidad para toda la clase pues es gracias a este que se pueden tener habilitadas todas las
+     * funcionalidades en nuestro proyecto
+     */
     static BaseDeDatos db = new BaseDeDatos();
+
+    /**
+     * Metodo inicial donde se le pide al usuario la seleccion de opciones para ofrecerle que se trabaje con la informacion
+     * del sistema o que se lea un nuevo archivo, tambien se presentan las opciones de ver las materias a las que esta
+     * inscrito un alumno y los alumnos que estan inscritos en una materia, solo se puede salir de este metodo una vez que
+     * el usuario lo pidio de manera explicita
+     */
     public static void principal(){
         if(serializer.read(ruta) != null){
             db = (BaseDeDatos) serializer.read(ruta);

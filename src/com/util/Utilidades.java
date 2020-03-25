@@ -2,6 +2,13 @@ package com.util;
 
 import java.util.Scanner;
 
+/**
+ * <h1>Utilidades</h1>
+ * En esta clase se tiene la funcionalidad de contar con metodos auxiliares a la clase UIMenu pues  para el ingreso
+ * de datos y la validacion de los mismos ha sido necesario implementar esta clase
+ * @author Ariel Merino Peña, Armando Aquino Chapa
+ * @version 1
+ */
 public class Utilidades {
     /**
      * Este método sirve para controlar que en las entradas de enteros
@@ -9,6 +16,7 @@ public class Utilidades {
      *
      * @param msg mensaje de instrucciones al usuario o indicaciones
      * @param error mensaje de error al detectar que la entrada no es un valor nummérico
+     *
      * @return entero que validó y ahora puede ser utilizado
      */
     public static int getInt(String msg, String error){
@@ -33,6 +41,16 @@ public class Utilidades {
         return entero;
     }
 
+    /**
+     * Este metodo se encarga de pedirle al usuario a traves de la terminal una cadena que sera modificada, se le
+     * reemplazaran todos los caracteres que no sean del alfabeto (ya sea minusculas o mayusculas) por el caracter vacio
+     * si llegara a ser el caso que solo se ingresar caracteres que no son los buscados entonces el metodos se seguira
+     * ejecutand pidiendole al usuario que vuelva a ingresar una cadena
+     *
+     * @param mensaje Donde se le solicita al usuario ingrese, se le dan instrucciones
+     * @param error aparece cuando la entrada no es valida
+     * @return cadena con valores validos para el programa
+     */
     public static String getStr(String mensaje, String error){
         Scanner sc = new Scanner(System.in);
         String cadena = null;
