@@ -19,12 +19,12 @@ public class UIMenu {
             db = (BaseDeDatos) serializer.read(ruta);
         }
         System.out.println(":.:.:.:.:.:.:.:.:.:.:.:.:.:.:.:.:.:.:.:.:.:.:.:.:.:.:.:.:.:.:.:.:.:.:.");
-        System.out.println("BIENIDX A la carrera de Ciencias de la Computacion");
+        System.out.println("BIENIDX A la carrera de Ciencias de la Computación");
         boolean primeraPregunta = true;
         do {
-            System.out.println("[1] Leer un nuevo archivo de texto ");
+            System.out.println("[1] Leer un nuevo archivo de texto: ");
             System.out.println("[2] Trabajar con los datos del sistema ");
-            int lecturaONo = getInt("Ingrese una opcion", "intente con numeros validos");
+            int lecturaONo = getInt("Ingrese una opción: ", "Intente con numeros válidos");
             switch (lecturaONo){
                 case 1:
                     Scanner scn = new Scanner(System.in);
@@ -55,25 +55,25 @@ public class UIMenu {
         }while (primeraPregunta);
         boolean continuar = true;
         do{
-            System.out.println("Estas son las opciones");
-            System.out.println("[1] Materias a las que esta inscrito un alumno");
-            System.out.println("[2] Alumnos inscritos en una materia");
-            System.out.println("[3] Añadir profesor y clave de materias");
-            System.out.println("[4] Sallir");
-            int respues = getInt("Seleccione una opcion: ", "Error, intente de nuevo");
+            System.out.println("Estas son las opciones: ");
+            System.out.println("[1] Materias a las que esta inscrito un alumno: ");
+            System.out.println("[2] Alumnos inscritos en una materia: ");
+            System.out.println("[3] Añadir profesor y clave de materias: ");
+            System.out.println("[4] Salir");
+            int respues = getInt("Seleccione una opción: ", "Error. Intente de nuevo");
             switch (respues){
                 case 1:
-                    System.out.println("Ingrese el nombre del alumno a consultar");
+                    System.out.println("Ingrese el nombre del alumno a consultar: ");
                     String nombre = getStr("Ingrese el nombre a consultar: ", "Error, solo ingrese letras");
                     Alumno busqueda = db.buscaAlumnos(nombre);
                     if (busqueda != null ){
                         System.out.println(busqueda);
-                        System.out.println("\nInscrito en las siguientes materias\n");
+                        System.out.println("\nInscrito en las siguientes materias:\n");
                         System.out.println("_/\\_/\\_/\\_/\\_/\\_/\\_/\\_/\\_/\\_/\\_/\\_/\\_/\\_/\\_/\\_/\\_/\\_/\\_/\\_/\\_/\\_/\\_/\\_\n");
                         System.out.println(busqueda.getMaterias());
                         System.out.println("_/\\_/\\_/\\_/\\_/\\_/\\_/\\_/\\_/\\_/\\_/\\_/\\_/\\_/\\_/\\_/\\_/\\_/\\_/\\_/\\_/\\_/\\_/\\_");
                     }else {
-                        System.out.println("No fue encontrado el estudiante " + nombre);
+                        System.out.println("No fue encontrado el estudiante: " + nombre);
                     }
                     break;
                 case 2:
@@ -90,11 +90,11 @@ public class UIMenu {
                     String laMateriaAAsignar = getStr("La materia a asignar", "Error, intente de nuevo");
                     Materia buscaAgregar = db.buscaMateria(laMateriaAAsignar);
                     if (buscaAgregar != null){
-                        int clav = getInt("Ingrese la clave de la materia", "Ingrese un  valor valido");
+                        int clav = getInt("Ingrese la clave de la materia", "Ingrese un  valor válido");
                         String  prof = getStr("Ingrese el nombre de la profesora(o): ", "Error, ingrese solo letras");
                         db.asignarClaveProfe(buscaAgregar, prof,clav);
                     }else {
-                        System.out.println("NO ha resultados para " + laMateriaAAsignar);
+                        System.out.println("NO hay resultados para " + laMateriaAAsignar);
                     }
                     break;
                 case 4:
@@ -104,7 +104,7 @@ public class UIMenu {
                     System.out.println(":.:.:.:.:.:.:.:.:.:.:.:.:.:.:.:.:.:.:.:.:.:.:.:.:.:.:.:.:.:.:.:.:.:.:.");
                     break;
                 default:
-                    System.out.println("Error, seleccione una opcion valida");
+                    System.out.println("Error, seleccione una opción válida");
             }
 
         }while (continuar);

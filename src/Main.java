@@ -3,20 +3,20 @@ import com.dbcc.Materia;
 
 import static com.UIMenu.UIMenu.principal;
 
+/**
+ * Clase prinicipal donde se llama al menu y este se encarga de dar el comportamiento requerido
+ * @author  Aquino Chapa Armando Abraham, Kevin Ariel Merino Peña
+ * @version 1
+ */
 public class Main {
+
+    /**
+     * Entrada principal de la aplicacion, comentarios adicionales en las clases restantes
+     * @param args supplied command-line arguments as an array of String objects
+     *  @see String
+     */
     public static void main(String[] args) {
         principal();
     }
 }
 
-//com.dbcc.BaseDeDatos al = new com.dbcc.BaseDeDatos();
-//al.leyendo();
-//System.out.println(al.getAlumnos());
-//System.out.println(al.alumnosSinRepetir());
-//System.out.println(al.alumnosSinRepetir().longitud());
-//System.out.println(al.unionRelacionar());
-//System.out.println(al.buscaAlumnos("Rafael MoRillA PaRejA"));
-//Materia logicasNoClasicas =  al.asignaAlumnos("Logicas no clasicas","Ariel Merino",57841);
-//System.out.println("Estos son alumnos inscritos en Logicas no clasicas\n" + logicasNoClasicas);
-//System.out.println(logicasNoClasicas.listaInscritos());
-//al.leeMaterias();
