@@ -3,6 +3,8 @@ package com.serializer;
 import java.io.*;
 
 /**
+ * <h1>Serializer </h1>
+ * <h3>Clase para serializar</h3>
  * Permite hacer la inscripcion de objetos en un documento de salida para mantener la persistencia de datos
  * @author Armando Aquino and Kevin Ariel Merino Peña
  * @version 1

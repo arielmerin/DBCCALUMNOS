@@ -19,20 +19,20 @@ public class UIMenu {
     /**
      * Objeto que sera util para realizar la persistencia de datos a traves de la serializacion de informacipon
      */
-    static Serializer serializer = new Serializer();
+    private static Serializer serializer = new Serializer();
     /**
      * Path por defecto donde se alojara el arachivo que contiene la informacion serializada
      */
-    static String ruta = "Base_Datos.dat";
+    private static String ruta = "Base_Datos.dat";
     /**
      * Ruta donde por omision se espera encontrar al menos un archivo txt
      */
-    static String rutadefault = "src/alumnos.txt";
+    private static String rutadefault = "src/alumnos.txt";
     /**
      * Este objeto sera de utlilidad para toda la clase pues es gracias a este que se pueden tener habilitadas todas las
      * funcionalidades en nuestro proyecto
      */
-    static BaseDeDatos db = new BaseDeDatos();
+    private static BaseDeDatos db = new BaseDeDatos();
 
     /**
      * Metodo inicial donde se le pide al usuario la seleccion de opciones para ofrecerle que se trabaje con la informacion
@@ -82,14 +82,13 @@ public class UIMenu {
         boolean continuar = true;
         do{
             System.out.println("Estas son las opciones: ");
-            System.out.println("[1] Materias a las que esta inscrito un alumno: ");
-            System.out.println("[2] Alumnos inscritos en una materia: ");
-            System.out.println("[3] Añadir profesor y clave de materias: ");
+            System.out.println("[1] Materias a las que esta inscrito un alumno");
+            System.out.println("[2] Alumnos inscritos en una materia");
+            System.out.println("[3] Añadir profesor y clave de materias");
             System.out.println("[4] Salir");
             int respues = getInt("Seleccione una opción: ", "Error. Intente de nuevo");
             switch (respues){
                 case 1:
-                    System.out.println("Ingrese el nombre del alumno a consultar: ");
                     String nombre = getStr("Ingrese el nombre a consultar: ", "Error, solo ingrese letras");
                     Alumno busqueda = db.buscaAlumnos(nombre);
                     if (busqueda != null ){
@@ -113,7 +112,7 @@ public class UIMenu {
                     }
                     break;
                 case 3:
-                    String laMateriaAAsignar = getStr("La materia a asignar", "Error, intente de nuevo");
+                    String laMateriaAAsignar = getStr("Ingrese la materia a asignar: ", "Error, intente de nuevo");
                     Materia buscaAgregar = db.buscaMateria(laMateriaAAsignar);
                     if (buscaAgregar != null){
                         int clav = getInt("Ingrese la clave de la materia", "Ingrese un  valor válido");

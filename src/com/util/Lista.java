@@ -4,6 +4,7 @@ import java.io.Serializable;
 import java.util.Iterator;
 
 /**
+ * <h1>Lista </h1>
  * <p> Clase concreta para modelar la estructura de datos Lista</p>
  * <p>Esta clase implementa una Lista genérica, es decir que es homogénea pero
  * puede tener elementos de cualquier tipo.

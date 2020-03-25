@@ -2,6 +2,8 @@
 import static com.UIMenu.UIMenu.principal;
 
 /**
+ * <h1>Main clase</h1>
+ * <h3>Clase Principal</h3>
  * Clase prinicipal donde se llama al menu y este se encarga de dar el comportamiento requerido
  * @author  Aquino Chapa Armando Abraham, Kevin Ariel Merino Peña
  * @version 1
