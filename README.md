@@ -1,5 +1,7 @@
-Cdmjfmnmk
+
 # Tarea 1 Estructuras de Datos
+## Profesor: Alejandro Hernandez Mora
+### Semestre 2020-2
 
 En este repositorio guardamos nuestra tarea 1 (comienza la cuenta desde 0) de nuestro actual curso de <strong> Estructuras de Datos </strong> 
 

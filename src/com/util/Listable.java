@@ -3,7 +3,7 @@ package com.util;
 /**
  * <p> Interfaz para listas </p> <p>Esta clase contiene las
  * operaciones elementales que debe tener el TAD Lista </p>
- * @author Alejandro Hernández Mora <alejandrohmora@ciencias.unam.mx>
+ * @author Alejandro Hernández Mora
  * @version 1.0
  */
 public interface Listable<T> {

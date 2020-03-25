@@ -77,6 +77,7 @@ public class Lista<T extends Serializable> implements Listable<T>, Iterable<T>, 
     /**
      *  Constructor copia de la clase. Recibe una lista con elementos.
      *  Crea una nueva lista exactamente igual a la que recibimos como parámetro.
+     * @param l parametro que requiere
      **/
     public Lista(Lista<T> l){
         Lista<T> nueva = l.copia();
@@ -88,6 +89,7 @@ public class Lista<T extends Serializable> implements Listable<T>, Iterable<T>, 
     /**
      *  Constructor de la clase que recibe parámetros.
      *  Crea una nueva lista con los elementos de la estructura iterable que recibe como parámetro.
+     * @param iterable parametro que requiere
      **/
     public Lista(Iterable<T> iterable){
         longitud = 0;
@@ -241,7 +243,7 @@ public class Lista<T extends Serializable> implements Listable<T>, Iterable<T>, 
      * @param i La posición cuyo elemento deseamos conocer.
      * @return <code> elemento </code> El elemento que contiene la lista,
      * <code>null</code> si no se encuentra
-     * @throws IndexOutOfBoundsException Si el índice es < 0 o >longitud()
+     * @throws IndexOutOfBoundsException Si el índice es menor que 0 o  mayor que longitud()
      */
     public T getElemento(int i)throws IndexOutOfBoundsException{
         if (i > longitud || i <= 0)
