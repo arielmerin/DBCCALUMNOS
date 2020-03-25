@@ -27,7 +27,7 @@ public class UIMenu {
     /**
      * Ruta donde por omision se espera encontrar al menos un archivo txt
      */
-    private static String rutadefault = "src/alumnos.txt";
+    private static String rutadefault = "alumnos.txt";
     /**
      * Este objeto sera de utlilidad para toda la clase pues es gracias a este que se pueden tener habilitadas todas las
      * funcionalidades en nuestro proyecto
@@ -41,9 +41,6 @@ public class UIMenu {
      * el usuario lo pidio de manera explicita
      */
     public static void principal(){
-        if(serializer.read(ruta) != null){
-            db = (BaseDeDatos) serializer.read(ruta);
-        }
         System.out.println(":.:.:.:.:.:.:.:.:.:.:.:.:.:.:.:.:.:.:.:.:.:.:.:.:.:.:.:.:.:.:.:.:.:.:.");
         System.out.println("BIENIDX A la carrera de Ciencias de la Computación");
         boolean primeraPregunta = true;
@@ -66,11 +63,11 @@ public class UIMenu {
                     }
                     break;
                 case 2:
-                    File archivo2 = new File(ruta);
-                    if (!archivo2.exists()) {
+                    if(serializer.read(ruta) == null){
                         System.out.println("OJO: ¡¡No existe el archivo de configuración!!");
-                    }else {
-                        db.leyendo(rutadefault);
+                        System.out.println("Intente de nuevo");
+                    }else{
+                        db = (BaseDeDatos) serializer.read(ruta);
                         primeraPregunta = false;
                     }
                     break;

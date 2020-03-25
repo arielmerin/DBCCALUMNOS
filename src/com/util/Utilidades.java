@@ -28,7 +28,6 @@ public class Utilidades {
             System.out.println(msg);
             if(scan.hasNextInt())
             {
-
                 entero = scan.nextInt();
                 if (entero > 0){
                     conti = false;
@@ -57,7 +56,7 @@ public class Utilidades {
         boolean continuar = false;
         do {
             System.out.println(mensaje);
-            cadena = sc.nextLine().replaceAll("[^A-Za-z ]", "");
+            cadena = sc.nextLine().replaceAll("[^a-zA-ZÀ-ÿ\u00f1\u00d1 ]", "");
             if (cadena.equals("")){
                 continuar = true;
                 System.out.println(error);

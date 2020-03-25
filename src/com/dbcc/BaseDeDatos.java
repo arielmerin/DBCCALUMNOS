@@ -1,11 +1,9 @@
 package com.dbcc;
 
-import com.serializer.Serializer;
 import com.util.Lista;
 
 import java.io.File;
 import java.io.FileNotFoundException;
-import java.io.IOException;
 import java.io.Serializable;
 import java.util.Scanner;
 
@@ -31,6 +29,7 @@ public class BaseDeDatos implements Serializable {
      * Esta lista albergara los alumnos sin repetir, con las materias correspondietnes
      */
     private Lista<Alumno> listaFinalF = new Lista<>();
+    private Lista<Integer> claves = new Lista<>();
     private static int contador;
 
     /**
@@ -54,8 +53,6 @@ public class BaseDeDatos implements Serializable {
             input.close();
         } catch (FileNotFoundException e){
             System.out.println("NO se encontro el archivo");
-        } catch (IOException e){
-            System.out.println(e);
         } catch (Exception ex) {
             System.out.println("El documento no se pudo abrir, intente de nuevo");
         }
@@ -156,6 +153,7 @@ public class BaseDeDatos implements Serializable {
      * @param clave numero de clave para añadir a la materia del primer parametro
      */
     public void  asignarClaveProfe(Materia materia, String profe, int clave){
+        claves.agregar(clave);
         for (Alumno alumno : listaFinalF) {
             for (Materia materia1: alumno.getMaterias()) {
                 if (materia1.getNombre().toLowerCase().equals(materia.getNombre().toLowerCase())){
@@ -170,8 +168,6 @@ public class BaseDeDatos implements Serializable {
                 materia1.setClave(clave);
             }
         }
-        Serializer ser = new Serializer();
-        ser.write(listaMaterias, "Base_Datos.dat");
         System.out.println(listaMaterias);
     }
 
@@ -206,6 +202,15 @@ public class BaseDeDatos implements Serializable {
             }
         }
         return null;
+    }
+
+    /**
+     * Este metodo verifica si la clave existe en la lista de claves de materias
+     * @param clave elemento a veriicar si existe con anterioridad
+     * @return si encontro la clave o no
+     */
+    public boolean existeClave(int clave){
+        return claves.contiene(clave);
     }
 
 }
