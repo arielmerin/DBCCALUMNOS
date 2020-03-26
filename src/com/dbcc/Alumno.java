@@ -88,6 +88,6 @@ public class Alumno implements Serializable {
 
     @Override
     public String toString() {
-        return "Alumno: " + name + "\nNumero de cuenta: " + matricula ;
+        return "Alumno: " + name;
     }
 }

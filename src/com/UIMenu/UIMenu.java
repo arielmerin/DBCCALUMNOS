@@ -89,7 +89,7 @@ public class UIMenu {
                     String nombre = getStr("Ingrese el nombre a consultar: ", "Error, solo ingrese letras");
                     Alumno busqueda = db.buscaAlumnos(nombre);
                     if (busqueda != null ){
-                        System.out.println(busqueda);
+                        System.out.println(busqueda + " # de cuenta: " + busqueda.getMatricula());
                         System.out.println("\nInscrito en las siguientes materias:\n");
                         System.out.println("_/\\_/\\_/\\_/\\_/\\_/\\_/\\_/\\_/\\_/\\_/\\_/\\_/\\_/\\_/\\_/\\_/\\_/\\_/\\_/\\_/\\_/\\_/\\_\n");
                         System.out.println(busqueda.getMaterias());
@@ -112,7 +112,16 @@ public class UIMenu {
                     String laMateriaAAsignar = getStr("Ingrese la materia a asignar: ", "Error, intente de nuevo");
                     Materia buscaAgregar = db.buscaMateria(laMateriaAAsignar);
                     if (buscaAgregar != null){
-                        int clav = getInt("Ingrese la clave de la materia", "Ingrese un  valor válido");
+                        boolean siguePreguntando = true;
+                        int clav;
+                        do {
+                             clav = getInt("Ingrese la clave de la materia", "Ingrese un  valor válido");
+                            if (!db.existeClave(clav)){
+                                siguePreguntando = false;
+                            }else{
+                                System.out.println("La clave: " + clav + " ya esta registrada con otra materia.");
+                            }
+                        }while (siguePreguntando);
                         String  prof = getStr("Ingrese el nombre de la profesora(o): ", "Error, ingrese solo letras");
                         db.asignarClaveProfe(buscaAgregar, prof,clav);
                     }else {
@@ -128,7 +137,6 @@ public class UIMenu {
                 default:
                     System.out.println("Error, seleccione una opción válida");
             }
-
         }while (continuar);
 
     }
